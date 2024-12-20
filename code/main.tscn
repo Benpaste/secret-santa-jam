@@ -1,13 +1,18 @@
-[gd_scene load_steps=11 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=14 format=3 uid="uid://psbg3qu2g72a"]
 
-[ext_resource type="Shader" path="res://code/scrolling_background.gdshader" id="1_o41fo"]
+[ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Texture2D" uid="uid://deativc754o2d" path="res://assets/textures/background.png" id="1_p7f7l"]
+[ext_resource type="FontFile" uid="uid://bf76uyfj3tgqg" path="res://assets/fonts/fnt_default.tres" id="3_fv7ey"]
 [ext_resource type="Script" path="res://code/player.gd" id="3_l86ku"]
 [ext_resource type="Texture2D" uid="uid://b0mqorfqibmhd" path="res://assets/textures/ship.png" id="3_mrmu4"]
+[ext_resource type="Script" path="res://code/visual/bubble_maker.gd" id="6_yv510"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mul2m"]
 shader = ExtResource("1_o41fo")
 shader_parameter/speed = -0.8
+
+[sub_resource type="LabelSettings" id="LabelSettings_2edjo"]
+font = ExtResource("3_fv7ey")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bg4lt"]
 atlas = ExtResource("3_mrmu4")
@@ -65,9 +70,27 @@ stretch_mode = 1
 [node name="ColorRect" type="ColorRect" parent="HUD"]
 anchors_preset = 10
 anchor_right = 1.0
-offset_bottom = 10.0
+offset_bottom = 9.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 1)
+
+[node name="LifeLabel" type="Label" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 9.0
+grow_horizontal = 2
+text = "s*3"
+label_settings = SubResource("LabelSettings_2edjo")
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = -1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+text = "300"
+label_settings = SubResource("LabelSettings_2edjo")
+horizontal_alignment = 2
 
 [node name="Foreground" type="CanvasLayer" parent="."]
 
@@ -78,3 +101,6 @@ script = ExtResource("3_l86ku")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Foreground/Player"]
 sprite_frames = SubResource("SpriteFrames_erau5")
 autoplay = "default"
+
+[node name="BubbleMaker" type="Node2D" parent="Foreground/Player"]
+script = ExtResource("6_yv510")

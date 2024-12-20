@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://caiqkj7jb2up"]
 
 [ext_resource type="Texture2D" uid="uid://xjjmnsk8vb2i" path="res://assets/textures/test.png" id="1_qnjru"]
-[ext_resource type="Script" path="res://code/claw_test.gd" id="1_thl42"]
+[ext_resource type="Script" path="res://code/visual/claw_test.gd" id="1_thl42"]
 
 [node name="ClawTest" type="Node2D" node_paths=PackedStringArray("CLAW", "SHOULDER", "SEGMENT_PARENT")]
 script = ExtResource("1_thl42")
