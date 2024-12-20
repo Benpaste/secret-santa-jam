@@ -1,68 +1,80 @@
-[gd_scene load_steps=2 format=3 uid="uid://c0nwbcen16jlm"]
+[gd_scene load_steps=11 format=3 uid="uid://psbg3qu2g72a"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3l64"]
-bg_color = Color(1, 1, 1, 1)
-draw_center = false
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
+[ext_resource type="Shader" path="res://code/scrolling_background.gdshader" id="1_o41fo"]
+[ext_resource type="Texture2D" uid="uid://deativc754o2d" path="res://assets/textures/background.png" id="1_p7f7l"]
+[ext_resource type="Script" path="res://code/player.gd" id="3_l86ku"]
+[ext_resource type="Texture2D" uid="uid://b0mqorfqibmhd" path="res://assets/textures/ship.png" id="3_mrmu4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_mul2m"]
+shader = ExtResource("1_o41fo")
+shader_parameter/speed = -0.8
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bg4lt"]
+atlas = ExtResource("3_mrmu4")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3t78"]
+atlas = ExtResource("3_mrmu4")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8kvs6"]
+atlas = ExtResource("3_mrmu4")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tp71"]
+atlas = ExtResource("3_mrmu4")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_erau5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bg4lt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3t78")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8kvs6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tp71")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
+}]
 
 [node name="Main" type="Node2D"]
 
-[node name="HudLayer" type="CanvasLayer" parent="."]
+[node name="Background" type="CanvasLayer" parent="."]
 
-[node name="Control" type="Control" parent="HudLayer"]
-custom_minimum_size = Vector2(0, 100)
-layout_mode = 3
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-
-[node name="BorderMargin" type="MarginContainer" parent="HudLayer/Control"]
-layout_mode = 1
+[node name="Bg" type="TextureRect" parent="Background"]
+texture_repeat = 2
+material = SubResource("ShaderMaterial_mul2m")
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
+texture = ExtResource("1_p7f7l")
+stretch_mode = 1
 
-[node name="Panel" type="Panel" parent="HudLayer/Control/BorderMargin"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_p3l64")
+[node name="HUD" type="CanvasLayer" parent="."]
 
-[node name="MarginContainer" type="MarginContainer" parent="HudLayer/Control/BorderMargin"]
-layout_mode = 2
-theme_override_constants/margin_left = 2
-theme_override_constants/margin_top = 2
-theme_override_constants/margin_right = 2
-theme_override_constants/margin_bottom = 2
-
-[node name="Panel" type="Panel" parent="HudLayer/Control/BorderMargin/MarginContainer"]
-layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_p3l64")
-
-[node name="TextMargin" type="MarginContainer" parent="HudLayer/Control"]
-layout_mode = 1
-anchors_preset = 15
+[node name="ColorRect" type="ColorRect" parent="HUD"]
+anchors_preset = 10
 anchor_right = 1.0
-anchor_bottom = 1.0
+offset_bottom = 10.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/margin_left = 16
-theme_override_constants/margin_top = 12
-theme_override_constants/margin_right = 16
-theme_override_constants/margin_bottom = 12
+color = Color(0, 0, 0, 1)
 
-[node name="Label" type="Label" parent="HudLayer/Control/TextMargin"]
-layout_mode = 2
-size_flags_vertical = 1
-text = "Distraught as you are, you decide to press on. Surely there is more to be found within."
-autowrap_mode = 2
+[node name="Foreground" type="CanvasLayer" parent="."]
+
+[node name="Player" type="Node2D" parent="Foreground"]
+position = Vector2(69, 168)
+script = ExtResource("3_l86ku")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Foreground/Player"]
+sprite_frames = SubResource("SpriteFrames_erau5")
+autoplay = "default"
