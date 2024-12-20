@@ -1,11 +1,15 @@
-[gd_scene load_steps=14 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=18 format=3 uid="uid://psbg3qu2g72a"]
 
 [ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Texture2D" uid="uid://deativc754o2d" path="res://assets/textures/background.png" id="1_p7f7l"]
+[ext_resource type="Script" path="res://code/main.gd" id="1_w66cn"]
 [ext_resource type="FontFile" uid="uid://bf76uyfj3tgqg" path="res://assets/fonts/fnt_default.tres" id="3_fv7ey"]
 [ext_resource type="Script" path="res://code/player.gd" id="3_l86ku"]
 [ext_resource type="Texture2D" uid="uid://b0mqorfqibmhd" path="res://assets/textures/ship.png" id="3_mrmu4"]
 [ext_resource type="Script" path="res://code/visual/bubble_maker.gd" id="6_yv510"]
+[ext_resource type="PackedScene" uid="uid://qr1rcwj6w6sc" path="res://code/visual/trail_bubble.tscn" id="7_dd1cy"]
+[ext_resource type="Script" path="res://code/bullet/player_bullet_spawner.gd" id="9_unfhi"]
+[ext_resource type="PackedScene" uid="uid://bf3qlndwimtp7" path="res://code/bullet/player_bullet.tscn" id="10_g50jm"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mul2m"]
 shader = ExtResource("1_o41fo")
@@ -50,13 +54,21 @@ animations = [{
 "speed": 20.0
 }]
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Node2D" node_paths=PackedStringArray("player")]
+script = ExtResource("1_w66cn")
+player = NodePath("Player")
 
-[node name="Background" type="CanvasLayer" parent="."]
+[node name="Control" type="Control" parent="."]
+custom_minimum_size = Vector2(140, 190)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 140.0
+offset_bottom = 190.0
 
-[node name="Bg" type="TextureRect" parent="Background"]
+[node name="Bg" type="TextureRect" parent="Control"]
 texture_repeat = 2
 material = SubResource("ShaderMaterial_mul2m")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -65,42 +77,52 @@ grow_vertical = 2
 texture = ExtResource("1_p7f7l")
 stretch_mode = 1
 
-[node name="HUD" type="CanvasLayer" parent="."]
-
-[node name="ColorRect" type="ColorRect" parent="HUD"]
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 offset_bottom = 9.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 1)
 
-[node name="LifeLabel" type="Label" parent="HUD"]
-anchors_preset = 10
+[node name="LifeLabel" type="Label" parent="Control/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-offset_bottom = 9.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 text = "s*3"
 label_settings = SubResource("LabelSettings_2edjo")
 
-[node name="ScoreLabel" type="Label" parent="HUD"]
-anchors_preset = 10
+[node name="ScoreLabel" type="Label" parent="Control/ColorRect"]
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
-offset_right = -1.0
-offset_bottom = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
+grow_vertical = 2
 text = "300"
 label_settings = SubResource("LabelSettings_2edjo")
 horizontal_alignment = 2
 
-[node name="Foreground" type="CanvasLayer" parent="."]
-
-[node name="Player" type="Node2D" parent="Foreground"]
+[node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("bullet_spawner")]
+z_index = 1
 position = Vector2(69, 168)
 script = ExtResource("3_l86ku")
+friendly = true
+bullet_spawner = NodePath("PlayerBulletSpawner")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Foreground/Player"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_erau5")
 autoplay = "default"
 
-[node name="BubbleMaker" type="Node2D" parent="Foreground/Player"]
+[node name="BubbleMaker" type="Node2D" parent="Player"]
+position = Vector2(0, 12)
 script = ExtResource("6_yv510")
+BUBBLE_SCENE = ExtResource("7_dd1cy")
+
+[node name="PlayerBulletSpawner" type="Node2D" parent="Player"]
+script = ExtResource("9_unfhi")
+bullet_scene = ExtResource("10_g50jm")
+friendly = true

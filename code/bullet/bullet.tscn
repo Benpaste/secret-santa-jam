@@ -1,0 +1,42 @@
+[gd_scene load_steps=7 format=3 uid="uid://brdjuifweudjy"]
+
+[ext_resource type="Script" path="res://code/bullet/bullet.gd" id="1_j2ctr"]
+[ext_resource type="Texture2D" uid="uid://b7by7ju7goabp" path="res://assets/textures/enemy_bullet.png" id="2_pgh5b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1x07f"]
+atlas = ExtResource("2_pgh5b")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j564x"]
+atlas = ExtResource("2_pgh5b")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vauy6"]
+atlas = ExtResource("2_pgh5b")
+region = Rect2(16, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_lmdy3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1x07f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j564x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vauy6")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Bullet" type="Node2D"]
+top_level = true
+script = ExtResource("1_j2ctr")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_lmdy3")
+autoplay = "default"
+frame_progress = 0.00152681

@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://qr1rcwj6w6sc"]
+
+[ext_resource type="SpriteFrames" uid="uid://d1m031ot3tcmu" path="res://code/visual/bubble_frames.tres" id="1_kmqvv"]
+[ext_resource type="Script" path="res://code/visual/trail_bubble.gd" id="2_iyecw"]
+
+[node name="TrailBubble" type="AnimatedSprite2D"]
+top_level = true
+sprite_frames = ExtResource("1_kmqvv")
+animation = &"shrink"
+script = ExtResource("2_iyecw")
