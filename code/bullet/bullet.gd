@@ -23,7 +23,7 @@ func _init() -> void:
 
 func _ready() -> void:
 	$AnimatedSprite2D.flip_h = flip
-	update_hitbox(1)
+	update_hitbox(3)
 
 
 func update_hitbox(radius: int) -> void:

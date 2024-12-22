@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://dn4y2am465fpo"]
+
+[ext_resource type="Script" path="res://code/visual/explosion.gd" id="1_cmuht"]
+[ext_resource type="SpriteFrames" uid="uid://qsr8p4m8ptui" path="res://code/visual/explosion_frames.tres" id="2_v77nj"]
+
+[node name="Explosion" type="Node2D"]
+script = ExtResource("1_cmuht")
+explosion_frames = ExtResource("2_v77nj")

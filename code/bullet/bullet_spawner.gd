@@ -9,8 +9,8 @@ signal bullet_created(bullet: Bullet)
 var offset := 0.0
 
 
-func spawn_bullet(direction := Bullet.BASE_DIRECTION, speed := Bullet.BASE_SPEED, position_ := Vector2.ZERO, flip := false) -> void:
-	var bullet_instance: Bullet = bullet_scene.instantiate()
+func spawn_bullet(direction := Bullet.BASE_DIRECTION, speed := Bullet.BASE_SPEED, position_ := Vector2.ZERO, flip := false, scene := bullet_scene) -> void:
+	var bullet_instance: Bullet = scene.instantiate()
 	bullet_instance.direction = direction
 	bullet_instance.speed = speed
 	bullet_instance.position = global_position + position_

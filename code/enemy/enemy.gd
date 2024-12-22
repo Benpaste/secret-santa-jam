@@ -3,7 +3,7 @@ class_name Enemy
 
 signal took_hit
 
-var health := 15
+@export var health := 15
 var alive := true:
 	set(value):
 		if alive and !value:
@@ -13,10 +13,9 @@ var alive := true:
 		hitbox.disabled = !alive
 
 
-func tick() -> void:
-	if alive:
-		position.x = round(100 * (2.0 + sin(Main.tick_number / 40.0)))
-		position.y = round(200 + 20 * sin(Main.tick_number / 20.0))
+func _ready() -> void:
+	super._ready()
+	add_to_group("enemy")
 
 
 func take_hit(bullet: Bullet) -> void:

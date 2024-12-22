@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://epcgoqkr2nph"]
+
+[ext_resource type="SpriteFrames" uid="uid://d1m031ot3tcmu" path="res://code/visual/bubble_frames.tres" id="1_wrgty"]
+[ext_resource type="Script" path="res://code/visual/whirlpool_bubble.gd" id="2_ohb6y"]
+
+[node name="WhirlpoolBubble" type="AnimatedSprite2D"]
+top_level = true
+sprite_frames = ExtResource("1_wrgty")
+script = ExtResource("2_ohb6y")

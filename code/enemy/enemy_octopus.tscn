@@ -1,0 +1,48 @@
+[gd_scene load_steps=9 format=3 uid="uid://g2urry4vlx4x"]
+
+[ext_resource type="Texture2D" uid="uid://cprvn63f2wosg" path="res://assets/textures/octopus.png" id="1_f76xd"]
+[ext_resource type="Script" path="res://code/enemy/enemy_octopus.gd" id="1_feyid"]
+[ext_resource type="Script" path="res://code/enemy/whirlpool_maker.gd" id="2_ycsjc"]
+[ext_resource type="PackedScene" uid="uid://epcgoqkr2nph" path="res://code/visual/whirlpool_bubble.tscn" id="3_nk702"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l5la8"]
+atlas = ExtResource("1_f76xd")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eo74n"]
+atlas = ExtResource("1_f76xd")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t64l7"]
+atlas = ExtResource("1_f76xd")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m1pje"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l5la8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eo74n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t64l7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="EnemyOctopus" type="Node2D"]
+position = Vector2(69, 82)
+script = ExtResource("1_feyid")
+
+[node name="WhirlpoolMaker" type="Node2D" parent="."]
+script = ExtResource("2_ycsjc")
+BUBBLE_SCENE = ExtResource("3_nk702")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = 1
+sprite_frames = SubResource("SpriteFrames_m1pje")
+autoplay = "default"

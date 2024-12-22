@@ -1,7 +1,7 @@
 extends Node2D
 class_name Main
 
-const SCREEN_SIZE := Vector2(140, 190)
+
 const DRAW_HITBOX := false
 
 signal do_tick()
@@ -32,7 +32,8 @@ func check_all_collisions() -> void:
 
 func check_entity_collisions(entity: Entity) -> void:
 	var rect := entity.get_global_hitbox()
-	check_collision.emit(rect, entity)
+	if rect.has_area():
+		check_collision.emit(rect, entity)
 
 
 func get_entities() -> Array[Entity]:

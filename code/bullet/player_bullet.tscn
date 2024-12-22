@@ -3,32 +3,32 @@
 [ext_resource type="PackedScene" uid="uid://brdjuifweudjy" path="res://code/bullet/bullet.tscn" id="1_x6w3m"]
 [ext_resource type="Texture2D" uid="uid://hmxtnfcrf54n" path="res://assets/textures/ship_bullet.png" id="2_4swn1"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_307mr"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0qrv0"]
 atlas = ExtResource("2_4swn1")
-region = Rect2(0, 0, 4, 8)
+region = Rect2(0, 0, 8, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_hk32k"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_udiag"]
 atlas = ExtResource("2_4swn1")
-region = Rect2(4, 0, 4, 8)
+region = Rect2(8, 0, 8, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_badmg"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_307mr")
+"texture": SubResource("AtlasTexture_0qrv0")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_hk32k")
+"texture": SubResource("AtlasTexture_udiag")
 }],
 "loop": true,
 "name": &"default",
-"speed": 15.0
+"speed": 30.0
 }]
 
 [node name="PlayerBullet" instance=ExtResource("1_x6w3m")]
 
 [node name="AnimatedSprite2D" parent="." index="0"]
-position = Vector2(-2, -1)
+position = Vector2(-4, -3)
 sprite_frames = SubResource("SpriteFrames_badmg")
-frame_progress = 0.92038
+frame_progress = 0.926237
 centered = false
