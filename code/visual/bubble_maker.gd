@@ -26,5 +26,7 @@ func spawn_bubble() -> void:
 	bubble.initialize(bubble_pos)
 	
 	bubble_flip = !bubble_flip
-	
-	
+
+
+func set_level(level: Level) -> void:
+	visible = level.bg != Level.BgTypes.SURFACE

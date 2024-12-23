@@ -1,6 +1,6 @@
 extends Enemy
 
-var velocity := Vector2.DOWN
+var velocity := Vector2.ZERO
 
 
 func tick() -> void:
@@ -12,4 +12,3 @@ func play_death() -> void:
 	$AnimatedSprite2D.hide()
 	$ExplosionSFX.play()
 	$Explosion.explode()
-	

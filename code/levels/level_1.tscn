@@ -1,0 +1,46 @@
+[gd_scene load_steps=6 format=3 uid="uid://bmhaav1sxj5i"]
+
+[ext_resource type="Script" path="res://code/levels/level_1.gd" id="1_qiopp"]
+[ext_resource type="PackedScene" uid="uid://cgg5tucbbj3om" path="res://code/enemy/enemy_orb.tscn" id="2_mutfd"]
+[ext_resource type="PackedScene" uid="uid://bmbwyslm8cwmb" path="res://code/enemy/enemy_jellyfish.tscn" id="3_62pha"]
+[ext_resource type="PackedScene" uid="uid://g2urry4vlx4x" path="res://code/enemy/enemy_octopus.tscn" id="4_mpg0b"]
+[ext_resource type="PackedScene" uid="uid://cw24dcjocifh3" path="res://code/enemy/enemy_starfish.tscn" id="5_mnr8g"]
+
+[node name="Level1" type="Node2D"]
+script = ExtResource("1_qiopp")
+
+[node name="EnemyOrb" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(40, -70)
+
+[node name="EnemyOrb2" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(100, -70)
+
+[node name="EnemyOrb3" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(40, -100)
+
+[node name="EnemyOrb5" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(70, -70)
+
+[node name="EnemyOrb6" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(70, -100)
+
+[node name="EnemyOrb4" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(100, -100)
+
+[node name="EnemyOrb7" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(40, -130)
+
+[node name="EnemyOrb8" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(70, -130)
+
+[node name="EnemyOrb9" parent="." instance=ExtResource("2_mutfd")]
+position = Vector2(100, -130)
+
+[node name="EnemyJellyfish" parent="." instance=ExtResource("3_62pha")]
+position = Vector2(67, -201)
+
+[node name="EnemyOctopus" parent="." instance=ExtResource("4_mpg0b")]
+position = Vector2(35, -210)
+
+[node name="EnemyStarfish" parent="." instance=ExtResource("5_mnr8g")]
+position = Vector2(68, 10)

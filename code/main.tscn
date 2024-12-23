@@ -1,17 +1,21 @@
-[gd_scene load_steps=50 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=54 format=3 uid="uid://psbg3qu2g72a"]
 
 [ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Script" path="res://code/main.gd" id="1_w66cn"]
+[ext_resource type="PackedScene" uid="uid://bmhaav1sxj5i" path="res://code/levels/level_1.tscn" id="2_lpfrr"]
 [ext_resource type="FontFile" uid="uid://bf76uyfj3tgqg" path="res://assets/fonts/fnt_default.tres" id="3_fv7ey"]
 [ext_resource type="Script" path="res://code/player.gd" id="3_l86ku"]
 [ext_resource type="Texture2D" uid="uid://b0mqorfqibmhd" path="res://assets/textures/ship.png" id="3_mrmu4"]
-[ext_resource type="Texture2D" uid="uid://chrq5htrfh2fu" path="res://assets/textures/background_city.png" id="3_xwr5f"]
+[ext_resource type="Texture2D" uid="uid://cgj7a01oor120" path="res://assets/textures/background_surface.png" id="4_n7y33"]
 [ext_resource type="FontFile" uid="uid://ch6b3v4jal2e4" path="res://assets/fonts/fnt_score.tres" id="5_s3ery"]
+[ext_resource type="Script" path="res://code/bg.gd" id="5_yr86t"]
 [ext_resource type="Script" path="res://code/score_label.gd" id="6_4gqd3"]
 [ext_resource type="Script" path="res://code/visual/bubble_maker.gd" id="6_yv510"]
 [ext_resource type="PackedScene" uid="uid://qr1rcwj6w6sc" path="res://code/visual/trail_bubble.tscn" id="7_dd1cy"]
+[ext_resource type="Texture2D" uid="uid://b6t7r4oed5ihp" path="res://assets/textures/title.png" id="9_3thqf"]
 [ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="9_ofxj0"]
 [ext_resource type="Script" path="res://code/bullet/player_bullet_spawner.gd" id="9_unfhi"]
+[ext_resource type="FontFile" uid="uid://1lfsxca0nyn8" path="res://assets/fonts/fnt_bare.tres" id="10_apf4y"]
 [ext_resource type="PackedScene" uid="uid://bf3qlndwimtp7" path="res://code/bullet/player_bullet.tscn" id="10_g50jm"]
 [ext_resource type="Script" path="res://code/notif_manager.gd" id="11_uqwrp"]
 [ext_resource type="AudioStream" uid="uid://bni38d6ehafcw" path="res://assets/sound/laserShoot_low.wav" id="13_8x5mj"]
@@ -20,18 +24,20 @@
 [ext_resource type="AudioStream" uid="uid://d0ffmklebxwsy" path="res://assets/sound/explosion_laser.wav" id="16_edkqn"]
 [ext_resource type="Script" path="res://code/visual/laser_drawer.gd" id="17_cvi25"]
 [ext_resource type="Texture2D" uid="uid://ca4q0fjo1jd5y" path="res://assets/textures/laser.png" id="18_h6l7n"]
-[ext_resource type="PackedScene" uid="uid://cgg5tucbbj3om" path="res://code/enemy/enemy_orb.tscn" id="20_d8qqe"]
 [ext_resource type="Texture2D" uid="uid://nt64146kbuga" path="res://assets/textures/laser_flare.png" id="20_kwtnx"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mul2m"]
 shader = ExtResource("1_o41fo")
-shader_parameter/speed = -0.8
+shader_parameter/speed = -0.5
 
 [sub_resource type="LabelSettings" id="LabelSettings_2edjo"]
 font = ExtResource("3_fv7ey")
 
 [sub_resource type="LabelSettings" id="LabelSettings_uumsp"]
 font = ExtResource("5_s3ery")
+
+[sub_resource type="LabelSettings" id="LabelSettings_l8uvw"]
+font = ExtResource("10_apf4y")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivste"]
 atlas = ExtResource("3_mrmu4")
@@ -221,6 +227,7 @@ animations = [{
 [node name="Main" type="Node2D" node_paths=PackedStringArray("player")]
 script = ExtResource("1_w66cn")
 player = NodePath("Player")
+level_scene = ExtResource("2_lpfrr")
 
 [node name="Control" type="Control" parent="."]
 custom_minimum_size = Vector2(140, 190)
@@ -238,8 +245,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("3_xwr5f")
+texture = ExtResource("4_n7y33")
 stretch_mode = 1
+script = ExtResource("5_yr86t")
 
 [node name="ColorRect" type="ColorRect" parent="Control"]
 z_index = 2
@@ -272,6 +280,24 @@ text = "0"
 label_settings = SubResource("LabelSettings_uumsp")
 horizontal_alignment = 2
 script = ExtResource("6_4gqd3")
+
+[node name="Title" type="Sprite2D" parent="Control"]
+position = Vector2(0, 28)
+texture = ExtResource("9_3thqf")
+centered = false
+
+[node name="Label" type="Label" parent="Control/Title"]
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = 40.0
+offset_bottom = 41.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "- press start -"
+label_settings = SubResource("LabelSettings_l8uvw")
+horizontal_alignment = 1
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("bullet_spawner")]
 z_index = 1
@@ -316,34 +342,5 @@ frames = SubResource("SpriteFrames_132vn")
 
 [node name="ScoreManager" type="Node2D" parent="."]
 script = ExtResource("11_uqwrp")
-
-[node name="Enemies" type="Node2D" parent="."]
-
-[node name="EnemyOrb" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(40, -70)
-
-[node name="EnemyOrb2" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(100, -70)
-
-[node name="EnemyOrb3" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(40, -100)
-
-[node name="EnemyOrb5" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(70, -70)
-
-[node name="EnemyOrb6" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(70, -100)
-
-[node name="EnemyOrb4" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(100, -100)
-
-[node name="EnemyOrb7" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(40, -130)
-
-[node name="EnemyOrb8" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(70, -130)
-
-[node name="EnemyOrb9" parent="Enemies" instance=ExtResource("20_d8qqe")]
-position = Vector2(100, -130)
 
 [connection signal="score_updated" from="ScoreManager" to="Control/ColorRect/ScoreLabel" method="_on_score_manager_score_updated"]

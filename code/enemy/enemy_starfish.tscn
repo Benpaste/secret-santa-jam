@@ -1,0 +1,32 @@
+[gd_scene load_steps=7 format=3 uid="uid://cw24dcjocifh3"]
+
+[ext_resource type="Script" path="res://enemy_starfish.gd" id="1_hwi1r"]
+[ext_resource type="Texture2D" uid="uid://b7amy8k7d35aw" path="res://assets/textures/starfish.png" id="2_ccqet"]
+[ext_resource type="Script" path="res://code/bullet/enemy_bullet_spawner.gd" id="3_ekfed"]
+[ext_resource type="PackedScene" uid="uid://brdjuifweudjy" path="res://code/bullet/bullet.tscn" id="4_p34yr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jueyc"]
+atlas = ExtResource("2_ccqet")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ymnla"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jueyc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="EnemyStarfish" type="Node2D" node_paths=PackedStringArray("bullet_spawner")]
+script = ExtResource("1_hwi1r")
+bullet_spawner = NodePath("EnemyBulletSpawner")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ymnla")
+
+[node name="EnemyBulletSpawner" type="Node2D" parent="."]
+script = ExtResource("3_ekfed")
+bullet_scene = ExtResource("4_p34yr")

@@ -35,7 +35,6 @@ animations = [{
 }]
 
 [node name="EnemyOctopus" type="Node2D"]
-position = Vector2(69, 82)
 script = ExtResource("1_feyid")
 
 [node name="WhirlpoolMaker" type="Node2D" parent="."]
