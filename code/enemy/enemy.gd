@@ -10,9 +10,12 @@ var alive := true:
 	set(value):
 		if alive and !value:
 			play_death()
+			drop_pickups()
 		alive = value
 		bullet_spawner.disabled = !alive
 		hitbox.disabled = !alive
+
+@export var pickup_amount := 0
 
 
 func _ready() -> void:
@@ -41,6 +44,8 @@ func take_hit(bullet: Bullet) -> void:
 	if health == 0:
 		alive = false
 	else:
+		Sound.play(Sound.HURT)
+		$AnimatedSprite2D.apply_flash(10)
 		took_hit.emit()
 
 
@@ -57,7 +62,21 @@ func on_shooting_area() -> bool:
 	return global_position.y > 12 and global_position.y < 170
 
 
-func explode() -> void:
+func explode(pos := Vector2.ZERO) -> void:
 	var explosion := EXPLOSION_SCENE.instantiate()
 	add_child(explosion)
+	explosion.position = pos
 	explosion.explode()
+	Sound.play(Sound.EXPLOSION_MEGAMAN)
+
+
+func drop_pickups() -> void:
+	await get_tree().create_timer(0.5)
+	for i in pickup_amount:
+		spawn_pickup()
+
+
+func spawn_pickup(pos := global_position) -> void:
+	var pickup := Pickup.new()
+	add_child(pickup)
+	pickup.global_position = pos

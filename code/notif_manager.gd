@@ -9,11 +9,6 @@ var score := 0:
 		score_updated.emit(score)
 
 
-func _physics_process(delta: float) -> void:
-	if Input.is_action_just_pressed("ui_end"):
-		increase_score(200, true)
-
-
 func spawn_notif(amount: int, pos: Vector2) -> void:
 	var notif := Notif.new()
 	add_child(notif)
@@ -21,7 +16,7 @@ func spawn_notif(amount: int, pos: Vector2) -> void:
 	notif.position = pos
 
 
-func increase_score(amount: int, notif := false) -> void:
+func increase_score(amount: int, notif := false, pos := Constants.SCREEN_SIZE / 2) -> void:
+	score += amount
 	if notif:
-		score += amount
-		spawn_notif(amount, Constants.SCREEN_SIZE / 2)
+		spawn_notif(amount, pos)

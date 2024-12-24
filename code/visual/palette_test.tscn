@@ -1,0 +1,15 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkrstpxo0f7wd"]
+
+[ext_resource type="Texture2D" uid="uid://c8pocfp0ij0my" path="res://assets/textures/palette_test.png" id="1_kfru1"]
+[ext_resource type="Shader" path="res://code/visual/palette_test.gdshader" id="1_q8a4g"]
+[ext_resource type="Texture2D" uid="uid://ikeo4o137106" path="res://assets/textures/palette_test_pal.png" id="2_5e4iy"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d5aol"]
+shader = ExtResource("1_q8a4g")
+shader_parameter/darken = 0.0
+shader_parameter/palette = ExtResource("2_5e4iy")
+
+[node name="PaletteTest" type="Sprite2D"]
+material = SubResource("ShaderMaterial_d5aol")
+texture = ExtResource("1_kfru1")
+centered = false

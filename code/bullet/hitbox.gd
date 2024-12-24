@@ -5,6 +5,7 @@ const BASE_RADIUS := 4
 
 var radius: int
 var area: Rect2i
+var custom_area: Rect2i
 
 var disabled := false:
 	set(value):
@@ -14,6 +15,8 @@ var disabled := false:
 			area = Rect2i(0, 0, 0, 0)
 		else:
 			area = create_rect(radius)
+			if custom_area:
+				area = custom_area
 		
 		queue_redraw()
 

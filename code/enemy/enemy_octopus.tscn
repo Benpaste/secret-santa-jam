@@ -1,9 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://g2urry4vlx4x"]
+[gd_scene load_steps=10 format=3 uid="uid://g2urry4vlx4x"]
 
 [ext_resource type="Texture2D" uid="uid://cprvn63f2wosg" path="res://assets/textures/octopus.png" id="1_f76xd"]
 [ext_resource type="Script" path="res://code/enemy/enemy_octopus.gd" id="1_feyid"]
 [ext_resource type="Script" path="res://code/enemy/whirlpool_maker.gd" id="2_ycsjc"]
 [ext_resource type="PackedScene" uid="uid://epcgoqkr2nph" path="res://code/visual/whirlpool_bubble.tscn" id="3_nk702"]
+[ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="5_drshy"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_l5la8"]
 atlas = ExtResource("1_f76xd")
@@ -45,3 +46,4 @@ BUBBLE_SCENE = ExtResource("3_nk702")
 z_index = 1
 sprite_frames = SubResource("SpriteFrames_m1pje")
 autoplay = "default"
+script = ExtResource("5_drshy")

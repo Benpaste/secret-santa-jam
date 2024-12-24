@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bmbwyslm8cwmb"]
+[gd_scene load_steps=7 format=3 uid="uid://bmbwyslm8cwmb"]
 
 [ext_resource type="Script" path="res://enemy_jellyfish.gd" id="1_78vvu"]
+[ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="3_eca0d"]
 [ext_resource type="Texture2D" uid="uid://dhajhnt8vr202" path="res://assets/textures/jellyfish.png" id="3_n80n8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3gaor"]
@@ -33,4 +34,5 @@ bullet_spawner = NodePath("")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_t83hx")
 autoplay = "default"
-frame_progress = 0.265571
+frame_progress = 0.702801
+script = ExtResource("3_eca0d")

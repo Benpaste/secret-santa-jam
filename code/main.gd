@@ -14,6 +14,11 @@ var level: Level
 static var tick_number := 0
 static var game_started := false
 
+static var graze_count := 0:
+	set(value):
+		graze_count = value
+		Pickup.level = clamp((graze_count / 10) + 1, 1, 4)
+
 
 func _ready() -> void:
 	
@@ -32,6 +37,7 @@ func _physics_process(_delta: float) -> void:
 	if game_started:
 		do_tick.emit()
 		check_all_collisions()
+		check_grazes()
 		tick_number += 1
 	else:
 		if Input.is_action_just_pressed("ui_accept"):
@@ -48,6 +54,17 @@ func check_entity_collisions(entity: Entity) -> void:
 	var rect := entity.get_global_hitbox()
 	if rect.has_area():
 		check_collision.emit(rect, entity)
+
+
+func check_grazes() -> void:
+	for bullet: Bullet in get_tree().get_nodes_in_group("bullets"):
+		if !bullet.friendly and !bullet.grazed:
+			var graze_dist := 8 + bullet.hitbox.radius
+			if bullet.global_position.distance_squared_to(player.global_position) < pow(graze_dist, 2):
+				graze_count += 1
+				Sound.play(Sound.GRAZE)
+				$ScoreManager.increase_score(20)
+				bullet.grazed = true
 
 
 func get_entities() -> Array[Entity]:

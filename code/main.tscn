@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=60 format=3 uid="uid://psbg3qu2g72a"]
 
 [ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Script" path="res://code/main.gd" id="1_w66cn"]
@@ -10,6 +10,7 @@
 [ext_resource type="FontFile" uid="uid://ch6b3v4jal2e4" path="res://assets/fonts/fnt_score.tres" id="5_s3ery"]
 [ext_resource type="Script" path="res://code/bg.gd" id="5_yr86t"]
 [ext_resource type="Script" path="res://code/score_label.gd" id="6_4gqd3"]
+[ext_resource type="Texture2D" uid="uid://bfsv0x8rrsdvd" path="res://assets/textures/life_icon.png" id="6_bvket"]
 [ext_resource type="Script" path="res://code/visual/bubble_maker.gd" id="6_yv510"]
 [ext_resource type="PackedScene" uid="uid://qr1rcwj6w6sc" path="res://code/visual/trail_bubble.tscn" id="7_dd1cy"]
 [ext_resource type="Texture2D" uid="uid://b6t7r4oed5ihp" path="res://assets/textures/title.png" id="9_3thqf"]
@@ -35,6 +36,27 @@ font = ExtResource("3_fv7ey")
 
 [sub_resource type="LabelSettings" id="LabelSettings_uumsp"]
 font = ExtResource("5_s3ery")
+
+[sub_resource type="Gradient" id="Gradient_cmon3"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4d2jg"]
+gradient = SubResource("Gradient_cmon3")
+width = 140
+height = 11
+
+[sub_resource type="Gradient" id="Gradient_fjfu1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_boq5i"]
+gradient = SubResource("Gradient_fjfu1")
+width = 140
+height = 11
+
+[sub_resource type="LabelSettings" id="LabelSettings_3aesr"]
+font = ExtResource("3_fv7ey")
 
 [sub_resource type="LabelSettings" id="LabelSettings_l8uvw"]
 font = ExtResource("10_apf4y")
@@ -259,14 +281,24 @@ offset_bottom = 9.0
 grow_horizontal = 2
 color = Color(0, 0, 0, 1)
 
+[node name="LifeIcon" type="TextureRect" parent="Control/ColorRect"]
+layout_mode = 0
+offset_left = 1.0
+offset_right = 9.0
+offset_bottom = 10.0
+texture = ExtResource("6_bvket")
+stretch_mode = 1
+
 [node name="LifeLabel" type="Label" parent="Control/ColorRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 8.0
+offset_right = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "s*3"
+text = "*3"
 label_settings = SubResource("LabelSettings_2edjo")
 
 [node name="ScoreLabel" type="Label" parent="Control/ColorRect"]
@@ -281,12 +313,39 @@ label_settings = SubResource("LabelSettings_uumsp")
 horizontal_alignment = 2
 script = ExtResource("6_4gqd3")
 
+[node name="TextureProgressBar" type="TextureProgressBar" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -86.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+value = 50.0
+texture_under = SubResource("GradientTexture2D_4d2jg")
+texture_progress = SubResource("GradientTexture2D_boq5i")
+
+[node name="Label" type="Label" parent="Control/TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "crystal harrier"
+label_settings = SubResource("LabelSettings_3aesr")
+horizontal_alignment = 1
+
 [node name="Title" type="Sprite2D" parent="Control"]
 position = Vector2(0, 28)
 texture = ExtResource("9_3thqf")
 centered = false
 
-[node name="Label" type="Label" parent="Control/Title"]
+[node name="PressStart" type="Label" parent="Control/Title"]
 anchors_preset = 14
 anchor_top = 0.5
 anchor_right = 1.0
@@ -300,11 +359,10 @@ label_settings = SubResource("LabelSettings_l8uvw")
 horizontal_alignment = 1
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("bullet_spawner")]
-z_index = 1
 position = Vector2(69, 168)
 script = ExtResource("3_l86ku")
 friendly = true
-RADIUS = 2
+RADIUS = 1
 bullet_spawner = NodePath("PlayerBulletSpawner")
 
 [node name="ShipSprite" type="AnimatedSprite2D" parent="Player"]

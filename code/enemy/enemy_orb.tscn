@@ -1,11 +1,9 @@
-[gd_scene load_steps=11 format=3 uid="uid://cgg5tucbbj3om"]
+[gd_scene load_steps=9 format=3 uid="uid://cgg5tucbbj3om"]
 
 [ext_resource type="Texture2D" uid="uid://bdve5cq726iqc" path="res://assets/textures/bubble_enemy.png" id="1_6w3nc"]
 [ext_resource type="Script" path="res://code/enemy/enemy_orb.gd" id="1_teag7"]
 [ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="3_r83gm"]
 [ext_resource type="Script" path="res://code/bullet/enemy_bullet_spawner.gd" id="4_xurv4"]
-[ext_resource type="AudioStream" uid="uid://dp6wiw2ha6aed" path="res://assets/sound/explosion_megaman.wav" id="5_mi7sy"]
-[ext_resource type="AudioStream" uid="uid://b8uayossp7iju" path="res://assets/sound/explosion_soft.wav" id="6_qqo1q"]
 [ext_resource type="PackedScene" uid="uid://dn4y2am465fpo" path="res://code/visual/explosion.tscn" id="7_7ona1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dseuu"]
@@ -43,13 +41,4 @@ script = ExtResource("3_r83gm")
 [node name="BulletSpawner" type="Node2D" parent="."]
 script = ExtResource("4_xurv4")
 
-[node name="ExplosionSFX" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("5_mi7sy")
-
-[node name="Hurt" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_qqo1q")
-
 [node name="Explosion" parent="." instance=ExtResource("7_7ona1")]
-
-[connection signal="took_hit" from="." to="Hurt" method="play"]
-[connection signal="took_hit" from="." to="AnimatedSprite2D" method="apply_flash" binds= [10]]

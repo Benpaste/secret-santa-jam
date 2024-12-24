@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=3 uid="uid://dji6m1mnx60e0"]
+
+[ext_resource type="PackedScene" uid="uid://brdjuifweudjy" path="res://code/bullet/bullet.tscn" id="1_wsm3m"]
+[ext_resource type="Script" path="res://code/bullet/needle_bullet.gd" id="2_b4yvu"]
+[ext_resource type="Texture2D" uid="uid://8jmo7mnvdnc8" path="res://assets/textures/enemy_bullet_needle.png" id="2_omnqh"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_85vos"]
+atlas = ExtResource("2_omnqh")
+region = Rect2(0, 0, 8, 8)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j774o"]
+atlas = ExtResource("2_omnqh")
+region = Rect2(8, 0, 8, 8)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ro38n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_85vos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j774o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bullet" instance=ExtResource("1_wsm3m")]
+script = ExtResource("2_b4yvu")
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_ro38n")
+autoplay = ""
+frame_progress = 0.0

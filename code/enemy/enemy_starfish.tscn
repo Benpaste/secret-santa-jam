@@ -1,7 +1,8 @@
-[gd_scene load_steps=7 format=3 uid="uid://cw24dcjocifh3"]
+[gd_scene load_steps=8 format=3 uid="uid://cw24dcjocifh3"]
 
 [ext_resource type="Script" path="res://enemy_starfish.gd" id="1_hwi1r"]
 [ext_resource type="Texture2D" uid="uid://b7amy8k7d35aw" path="res://assets/textures/starfish.png" id="2_ccqet"]
+[ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="3_7o633"]
 [ext_resource type="Script" path="res://code/bullet/enemy_bullet_spawner.gd" id="3_ekfed"]
 [ext_resource type="PackedScene" uid="uid://brdjuifweudjy" path="res://code/bullet/bullet.tscn" id="4_p34yr"]
 
@@ -26,6 +27,7 @@ bullet_spawner = NodePath("EnemyBulletSpawner")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ymnla")
+script = ExtResource("3_7o633")
 
 [node name="EnemyBulletSpawner" type="Node2D" parent="."]
 script = ExtResource("3_ekfed")

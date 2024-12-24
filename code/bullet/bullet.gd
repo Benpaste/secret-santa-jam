@@ -3,18 +3,22 @@ class_name Bullet
 
 static var amount := 0
 
-const BASE_SPEED := 1
+const BASE_SPEED := 1.0
 const BASE_DIRECTION := 0.0
 
 var speed := BASE_SPEED
-var direction := BASE_DIRECTION
+var direction := BASE_DIRECTION:
+	set(value):
+		direction = wrapf(value, 0, TAU)
 
 var hitbox := Hitbox.new()
 
 var lifetime := 0
 var friendly := false
+var grazed := false
 
 var flip := false
+
 
 
 func _init() -> void:
@@ -22,8 +26,9 @@ func _init() -> void:
 
 
 func _ready() -> void:
+	add_to_group("bullets")
 	$AnimatedSprite2D.flip_h = flip
-	update_hitbox(3)
+	update_hitbox(1)
 
 
 func update_hitbox(radius: int) -> void:
@@ -35,7 +40,7 @@ func update_hitbox(radius: int) -> void:
 func tick() -> void:
 	position += Vector2.DOWN.rotated(direction) * speed
 	lifetime += 1
-	if lifetime > 300:
+	if lifetime > 3000:
 		die()
 
 

@@ -27,12 +27,16 @@ func tick() -> void:
 	if Input.is_action_pressed("laser"): speed /= 2
 	v_position += speed * input_vector
 	
-	v_position.x = clamp(v_position.x, 0, Constants.SCREEN_SIZE.x)
-	v_position.y = clamp(v_position.y, 0, Constants.SCREEN_SIZE.y)
+	var BORDER := 8
+	v_position.x = clamp(v_position.x, BORDER, Constants.SCREEN_SIZE.x - BORDER)
+	v_position.y = clamp(v_position.y, BORDER, Constants.SCREEN_SIZE.y - BORDER)
 	
 	bullet_spawner.tick()
 	$ShipSprite.flashing = bullet_spawner.is_laser_charged()
 	$ShipSprite.set_direction(input_vector)
+	
+	for i: Pickup in get_tree().get_nodes_in_group("pickups"):
+		i.update(position)
 
 
 func take_hit(bullet: Bullet) -> void:

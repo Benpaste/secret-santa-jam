@@ -1,0 +1,39 @@
+[gd_scene load_steps=7 format=3 uid="uid://dqoulak8pgch3"]
+
+[ext_resource type="PackedScene" uid="uid://cvyv1lt230uwd" path="res://code/bullet/decel_bullet.tscn" id="1_dbyq2"]
+[ext_resource type="Texture2D" uid="uid://bnmv0dwv33bax" path="res://assets/textures/enemy_bullet_6px.png" id="2_gt1j2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qsukq"]
+atlas = ExtResource("2_gt1j2")
+region = Rect2(0, 0, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fe77g"]
+atlas = ExtResource("2_gt1j2")
+region = Rect2(6, 0, 6, 6)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d3tqf"]
+atlas = ExtResource("2_gt1j2")
+region = Rect2(12, 0, 6, 6)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_vavjc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qsukq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe77g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d3tqf")
+}],
+"loop": true,
+"name": &"default",
+"speed": 15.0
+}]
+
+[node name="Bullet" instance=ExtResource("1_dbyq2")]
+
+[node name="AnimatedSprite2D" parent="." index="0"]
+sprite_frames = SubResource("SpriteFrames_vavjc")
+frame_progress = 0.0

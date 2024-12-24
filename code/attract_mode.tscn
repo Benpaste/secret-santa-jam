@@ -1,0 +1,33 @@
+[gd_scene load_steps=3 format=3 uid="uid://dweav33j22aia"]
+
+[ext_resource type="FontFile" uid="uid://1lfsxca0nyn8" path="res://assets/fonts/fnt_bare.tres" id="1_6trn6"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_lvkjg"]
+line_spacing = 32.0
+font = ExtResource("1_6trn6")
+
+[node name="AttractMode" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -52.0
+offset_top = -17.0
+offset_right = 52.0
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "to simmiworms
+from sneil"
+label_settings = SubResource("LabelSettings_lvkjg")
+horizontal_alignment = 1
