@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=68 format=3 uid="uid://psbg3qu2g72a"]
 
 [ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Script" path="res://code/main.gd" id="1_w66cn"]
@@ -26,6 +26,7 @@
 [ext_resource type="Script" path="res://code/continue_screen.gd" id="14_h244y"]
 [ext_resource type="AudioStream" uid="uid://d1sdh7r43d7ug" path="res://assets/sound/explosion_charge.wav" id="14_uyj7u"]
 [ext_resource type="Shader" path="res://code/fade_rect.gdshader" id="15_8h1ln"]
+[ext_resource type="Script" path="res://code/visual/fade_rect.gd" id="16_8xdsl"]
 [ext_resource type="AudioStream" uid="uid://d0ffmklebxwsy" path="res://assets/sound/explosion_laser.wav" id="16_edkqn"]
 [ext_resource type="SpriteFrames" uid="uid://ca87q617kmwth" path="res://code/visual/flash_star.tres" id="16_qrdm0"]
 [ext_resource type="Script" path="res://code/visual/laser_drawer.gd" id="17_cvi25"]
@@ -407,6 +408,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+script = ExtResource("16_8xdsl")
 
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("bullet_spawner")]
 position = Vector2(69, 168)
