@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://psbg3qu2g72a"]
+[gd_scene load_steps=67 format=3 uid="uid://psbg3qu2g72a"]
 
 [ext_resource type="Shader" path="res://code/visual/scrolling_background.gdshader" id="1_o41fo"]
 [ext_resource type="Script" path="res://code/main.gd" id="1_w66cn"]
@@ -13,6 +13,8 @@
 [ext_resource type="Texture2D" uid="uid://bfsv0x8rrsdvd" path="res://assets/textures/life_icon.png" id="6_bvket"]
 [ext_resource type="Script" path="res://code/visual/bubble_maker.gd" id="6_yv510"]
 [ext_resource type="PackedScene" uid="uid://qr1rcwj6w6sc" path="res://code/visual/trail_bubble.tscn" id="7_dd1cy"]
+[ext_resource type="Script" path="res://code/life_icon.gd" id="7_u1yke"]
+[ext_resource type="Script" path="res://code/life_label.gd" id="8_i6mms"]
 [ext_resource type="Texture2D" uid="uid://b6t7r4oed5ihp" path="res://assets/textures/title.png" id="9_3thqf"]
 [ext_resource type="Script" path="res://code/visual/flash_sprite.gd" id="9_ofxj0"]
 [ext_resource type="Script" path="res://code/bullet/player_bullet_spawner.gd" id="9_unfhi"]
@@ -21,11 +23,15 @@
 [ext_resource type="Script" path="res://code/notif_manager.gd" id="11_uqwrp"]
 [ext_resource type="AudioStream" uid="uid://bni38d6ehafcw" path="res://assets/sound/laserShoot_low.wav" id="13_8x5mj"]
 [ext_resource type="PackedScene" uid="uid://cxbdv88odqobe" path="res://code/bullet/laser_bullet.tscn" id="13_bdto3"]
+[ext_resource type="Script" path="res://code/continue_screen.gd" id="14_h244y"]
 [ext_resource type="AudioStream" uid="uid://d1sdh7r43d7ug" path="res://assets/sound/explosion_charge.wav" id="14_uyj7u"]
+[ext_resource type="Shader" path="res://code/fade_rect.gdshader" id="15_8h1ln"]
 [ext_resource type="AudioStream" uid="uid://d0ffmklebxwsy" path="res://assets/sound/explosion_laser.wav" id="16_edkqn"]
+[ext_resource type="SpriteFrames" uid="uid://ca87q617kmwth" path="res://code/visual/flash_star.tres" id="16_qrdm0"]
 [ext_resource type="Script" path="res://code/visual/laser_drawer.gd" id="17_cvi25"]
 [ext_resource type="Texture2D" uid="uid://ca4q0fjo1jd5y" path="res://assets/textures/laser.png" id="18_h6l7n"]
 [ext_resource type="Texture2D" uid="uid://nt64146kbuga" path="res://assets/textures/laser_flare.png" id="20_kwtnx"]
+[ext_resource type="PackedScene" uid="uid://dn4y2am465fpo" path="res://code/visual/explosion.tscn" id="29_cnje2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mul2m"]
 shader = ExtResource("1_o41fo")
@@ -60,6 +66,12 @@ font = ExtResource("3_fv7ey")
 
 [sub_resource type="LabelSettings" id="LabelSettings_l8uvw"]
 font = ExtResource("10_apf4y")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_np2yo"]
+shader = ExtResource("15_8h1ln")
+shader_parameter/progress_ = -1.0
+shader_parameter/SCREEN_SIZE = Vector2(140, 190)
+shader_parameter/BOX_SIZE = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ivste"]
 atlas = ExtResource("3_mrmu4")
@@ -288,6 +300,7 @@ offset_right = 9.0
 offset_bottom = 10.0
 texture = ExtResource("6_bvket")
 stretch_mode = 1
+script = ExtResource("7_u1yke")
 
 [node name="LifeLabel" type="Label" parent="Control/ColorRect"]
 layout_mode = 1
@@ -298,8 +311,9 @@ offset_left = 8.0
 offset_right = 8.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "*3"
+text = "*2"
 label_settings = SubResource("LabelSettings_2edjo")
+script = ExtResource("8_i6mms")
 
 [node name="ScoreLabel" type="Label" parent="Control/ColorRect"]
 layout_mode = 1
@@ -358,6 +372,42 @@ text = "- press start -"
 label_settings = SubResource("LabelSettings_l8uvw")
 horizontal_alignment = 1
 
+[node name="ContinueScreen" type="Label" parent="Control"]
+visible = false
+z_index = 2
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -44.0
+offset_top = -11.5
+offset_right = 44.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "press start
+to continue"
+label_settings = SubResource("LabelSettings_l8uvw")
+horizontal_alignment = 1
+script = ExtResource("14_h244y")
+
+[node name="Timer" type="Timer" parent="Control/ContinueScreen"]
+
+[node name="FadeRect" type="ColorRect" parent="Control"]
+z_index = 100
+z_as_relative = false
+material = SubResource("ShaderMaterial_np2yo")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
 [node name="Player" type="Node2D" parent="." node_paths=PackedStringArray("bullet_spawner")]
 position = Vector2(69, 168)
 script = ExtResource("3_l86ku")
@@ -380,6 +430,7 @@ BUBBLE_SCENE = ExtResource("7_dd1cy")
 [node name="PlayerBulletSpawner" type="Node2D" parent="Player"]
 script = ExtResource("9_unfhi")
 laser_bullet_scene = ExtResource("13_bdto3")
+flash_frames = ExtResource("16_qrdm0")
 bullet_scene = ExtResource("10_g50jm")
 friendly = true
 
@@ -398,7 +449,13 @@ position = Vector2(0, -12)
 script = ExtResource("17_cvi25")
 frames = SubResource("SpriteFrames_132vn")
 
+[node name="Explosion" parent="Player" instance=ExtResource("29_cnje2")]
+
 [node name="ScoreManager" type="Node2D" parent="."]
 script = ExtResource("11_uqwrp")
 
+[connection signal="lives_updated" from="." to="Control/ColorRect/LifeIcon" method="_on_main_lives_updated"]
+[connection signal="lives_updated" from="." to="Control/ColorRect/LifeLabel" method="_on_main_lives_updated"]
+[connection signal="finished" from="Control/ContinueScreen" to="." method="_on_continue_screen_finished"]
+[connection signal="timeout" from="Control/ContinueScreen/Timer" to="Control/ContinueScreen" method="_on_timer_timeout"]
 [connection signal="score_updated" from="ScoreManager" to="Control/ColorRect/ScoreLabel" method="_on_score_manager_score_updated"]

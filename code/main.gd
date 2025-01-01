@@ -5,6 +5,7 @@ class_name Main
 const DRAW_HITBOX := false
 
 signal do_tick()
+signal lives_updated(value: int)
 signal check_collision(rect: Rect2i, friendly_target: bool)
 
 @export var player: Player
@@ -13,6 +14,10 @@ var level: Level
 
 static var tick_number := 0
 static var game_started := false
+var lives := 2:
+	set(value):
+		lives = value
+		lives_updated.emit(lives)
 
 static var graze_count := 0:
 	set(value):
@@ -21,7 +26,6 @@ static var graze_count := 0:
 
 
 func _ready() -> void:
-	
 	level = level_scene.instantiate()
 	add_child(level)
 	$Control/Bg.set_level(level)
@@ -32,6 +36,7 @@ func _ready() -> void:
 		entity.bullet_spawner.bullet_created.connect(_on_bullet_created)
 		do_tick.connect(entity._tick)
 	do_tick.connect(level.tick)
+
 
 func _physics_process(_delta: float) -> void:
 	if game_started:
@@ -57,6 +62,7 @@ func check_entity_collisions(entity: Entity) -> void:
 
 
 func check_grazes() -> void:
+	if player.is_invincible(): return
 	for bullet: Bullet in get_tree().get_nodes_in_group("bullets"):
 		if !bullet.friendly and !bullet.grazed:
 			var graze_dist := 8 + bullet.hitbox.radius
@@ -84,3 +90,13 @@ func get_enemies() -> Array[Enemy]:
 func _on_bullet_created(bullet: Bullet) -> void:
 	do_tick.connect(bullet.tick)
 	check_collision.connect(bullet.check_touching_target)
+
+
+func _on_continue_screen_finished(continued: bool) -> void:
+	if continued:
+		lives = 2
+		graze_count = 0
+		$ScoreManager.score = 0
+		player.revive()
+	else:
+		print("Game Over...")

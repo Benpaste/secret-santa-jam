@@ -12,5 +12,6 @@ enum BgTypes {
 
 func tick() -> void:
 	if Main.tick_number == 1:
+		return
 		Sound.play(Sound.BOSS)
 	position += Vector2.DOWN
