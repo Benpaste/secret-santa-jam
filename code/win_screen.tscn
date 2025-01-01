@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=3 uid="uid://cx5kbtpex4gp4"]
+
+[ext_resource type="Script" path="res://code/win_screen.gd" id="1_2wt5o"]
+[ext_resource type="SpriteFrames" uid="uid://cnh35hpjexnek" path="res://code/visual/pickup.tres" id="2_kdhmt"]
+
+[node name="WinScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2wt5o")
+
+[node name="Lv1" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("2_kdhmt")
+animation = &"lv1"
+autoplay = "lv1"
+centered = false
+
+[node name="Lv2" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("2_kdhmt")
+animation = &"lv2"
+autoplay = "lv2"
+centered = false
+
+[node name="Lv3" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("2_kdhmt")
+animation = &"lv3"
+autoplay = "lv3"
+centered = false
+
+[node name="Lv4" type="AnimatedSprite2D" parent="."]
+visible = false
+sprite_frames = ExtResource("2_kdhmt")
+animation = &"lv4"
+autoplay = "lv4"
+centered = false
