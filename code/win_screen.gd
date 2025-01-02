@@ -30,11 +30,12 @@ func _ready() -> void:
 		set_draw_rows(draw_rows + 1)
 		
 		var wait := 0.1
-		var sound := Sound.PICKUP
+		var sound := Sound.CANNON
 		match i:
 			0,6, 10:
 				wait = 0.5
-				sound = Sound.CANNON
+			1,2,3,4:
+				sound = Sound.PICKUP
 			5, 9:
 				wait = 0.3
 		
